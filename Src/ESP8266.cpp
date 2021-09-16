@@ -11,11 +11,11 @@
 
 #include "ESP8266.h"
 
-#define NETWORK  "BEZEQINT-E2B9"                                // your access point SSID
-#define PASSWORD "7271605975"                                   // your wifi Access Point password
+#define NETWORK  "*************"                                // your access point SSID
+#define PASSWORD "**********"                                   // your wifi Access Point password
 
 #define IP "184.106.153.149"                                    // IP address of thingspeak.com
-#define GETSTRING "GET /update?api_key=1CYSV23WHUY65XDO"        // replace with your channel key
+#define GETSTRING "GET /update?api_key=****************"        // replace with your channel key
 
 // https://thingspeak.com/channels/1481727/private_show
 // Channel -  name 'Train_5_parameters_000' , id '1481727'
