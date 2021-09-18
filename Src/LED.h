@@ -18,6 +18,7 @@ namespace MeteoMega::LED
 
     void led(bool switchOn);
     void setBlink(bool blink_i);
+    void prepareColorsAndLed();
 };
 
 

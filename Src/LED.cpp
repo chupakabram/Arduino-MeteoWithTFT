@@ -6,11 +6,18 @@
 #include "Common.h"
 #include "LED.h"
 
+#define DEBUG false 
+#define DEBUGPRINT(x)   if(DEBUG){Serial.println(x);}
+
 namespace MeteoMega::LED
 {
     uint8_t r,g,b;
-    uint8_t colors[2][3][3]={{{0,255,0},{0,0,255},{255,0,0}},
-                               {{0,128,0},{0,0,128}, {128,0,0}}};
+    uint8_t colors[2][3][3]={{{0,160,0},{144,144,0},{160,0,0}},
+                               {{0,80,0},{72,72,0,}, {80,0,0}}};
+    
+    //uint8_t colors[2][3][3]={{{0,255,0},{0,0,255},{255,0,0}},
+    //                           {{0,128,0},{0,0,128}, {128,0,0}}};
+    
     bool bright = true;
     uint8_t bi = 0;
 
@@ -19,6 +26,7 @@ namespace MeteoMega::LED
 
     bool blink = false;
     bool dotFlag = false;
+    eColor color = eColor::eNormal;
 
     void InitLED()
     {
@@ -26,11 +34,18 @@ namespace MeteoMega::LED
         pinMode(LED_G_PIN, OUTPUT);
         pinMode(LED_B_PIN, OUTPUT);
 
+        blink = false;
+
         r = colors[bi][0][0]; 
         g = colors[bi][0][1]; 
         b = colors[bi][0][2];
 
-        blink = false;
+            DEBUGPRINT(r)
+            DEBUGPRINT(g)
+            DEBUGPRINT(b)
+            DEBUGPRINT("-------")
+        
+        prepareColorsAndLed();
     }
 
     void UpdateLED()
@@ -44,39 +59,61 @@ namespace MeteoMega::LED
                 clockBlinking = millis();
             }
         }
+        else
+        {
+            DEBUGPRINT(r)
+            DEBUGPRINT(g)
+            DEBUGPRINT(b)
+            DEBUGPRINT("-------")
+            //led(true);
+        }
     }
-    
+
     void SetColor(eColor color_i)
     {
-        r = colors[bi][(uint8_t)color_i][0]; 
-        g = colors[bi][(uint8_t)color_i][1]; 
-        b = colors[bi][(uint8_t)color_i][2];
-
-        led(true); 
-
-        setBlink( eColor::eHigh == color_i);
+        if (color_i != color)
+        {
+            color = color_i;
+            setBlink(eColor::eHigh == color_i);
+            prepareColorsAndLed();
+        }
     }
 
     void SetBright(bool bright_i)
     {
-        bright = bright_i;
-        bi = bright ? 0 : 1; 
+        if(bright_i != bright)
+        {
+            bright = bright_i;
+            bi = bright ? 0 : 1; 
+            prepareColorsAndLed();
+        }
     }
 
     void setBlink(bool blink_i)
     {
-        blink = blink_i;
-        dotFlag = true;
-        if (blink)
+        if (blink != blink_i)
         {
-            clockBlinking = millis();
-        }
-        else
-        {
-            led(true);
+            blink = blink_i;
+            dotFlag = true;
+            if (blink)
+            {
+                clockBlinking = millis();
+            }
+            else
+            {
+                led(true);
+            }
         }
     }
 
+    void prepareColorsAndLed()
+    {
+        r = colors[bi][(uint8_t)color][0];
+        g = colors[bi][(uint8_t)color][1];
+        b = colors[bi][(uint8_t)color][2];
+        led(true);
+    }    
+    
     void led(bool switchOn)
     {
         analogWrite(LED_R_PIN, 0);

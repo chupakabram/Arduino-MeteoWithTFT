@@ -19,7 +19,7 @@ namespace MeteoMega::Diagrams
     } eState;
 
     LCDWIKI_KBV * _lcd;
-    unsigned long _updateInterval = 2133; //30000;  // 30 seconds
+    unsigned long _updateInterval = 30000;  // 30 seconds
     uint16_t _counter;
     unsigned long clockTimer0;
     eTimeMode timeMode;

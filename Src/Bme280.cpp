@@ -4,6 +4,8 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
+#include "Common.h"
+
 #include "Bme280.h"
 
 #define DEBUG false 
