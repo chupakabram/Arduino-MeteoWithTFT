@@ -33,7 +33,7 @@ namespace MeteoMega::CCS811
   Adafruit_CCS811 ccs;
 
   void InitCCS811(
-      MeteoMega::Sticker::Sticker * pInitSticker,
+      MeteoMega::Sticker::Sticker *pInitSticker,
       MeteoMega::Sticker::Sticker *pStickerCO2,
       MeteoMega::Sticker::Sticker *pStickerTVOC, int pollingInterval)
   {
@@ -69,6 +69,9 @@ namespace MeteoMega::CCS811
       clockTimer = millis();
       acquireCO2_TVOC();
 
+      css811data.co2 -= correctionDeltaCO2;
+      css811data.tvoc -= correctionDeltaTvoc;
+
       if(css811data.co2 < css811dataMin.co2 )
       {
         css811dataMin.co2 = css811data.co2;
@@ -97,9 +100,10 @@ namespace MeteoMega::CCS811
 
   void CalibrateCO2()
   {
+    DEBUGPRINT(F("CalibrateCO2 is called."));
     acquireCO2_TVOC();
     correctionDeltaCO2 = css811data.co2 - NORMAL_CO2;
-    correctionDeltaTvoc = - css811data.tvoc - NORMAL_TVOC;
+    correctionDeltaTvoc = css811data.tvoc - NORMAL_TVOC;
   }
 
   void initSensor()
@@ -165,12 +169,12 @@ namespace MeteoMega::CCS811
 
   int ReadCO2()
   {
-    return css811data.co2 - correctionDeltaCO2;
+    return css811data.co2;
   }
 
   int ReadTVOC()
   {
-    return css811data.tvoc - correctionDeltaTvoc;
+    return css811data.tvoc;
   }
 }
 

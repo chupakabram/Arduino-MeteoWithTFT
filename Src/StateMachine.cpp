@@ -83,10 +83,10 @@ namespace MeteoMega::StateMachine
 
         resetCO2Button = new OneButton(
             RESET_BUTTON_PIN, // Input pin for the button
-            false             // Button is active HIGH
+            true              // Button is active LOW
         );
         setupButton = new OneButton(
-            MODE_BUTTON_PIN, // Input pin for the button
+            MODE_BUTTON_PIN,  // Input pin for the button
             false             // Button is active HIGH
         );
 
