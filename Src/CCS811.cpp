@@ -5,6 +5,7 @@
 #include <Adafruit_CCS811.h>
 
 #include "Common.h"
+#include "Sensors.h"
 
 #include "CCS811.h"
 
@@ -69,8 +70,9 @@ namespace MeteoMega::CCS811
       clockTimer = millis();
       acquireCO2_TVOC();
 
-      css811data.co2 -= correctionDeltaCO2;
-      css811data.tvoc -= correctionDeltaTvoc;
+      setCorrection();
+  
+      setEnvironmentCompensation();
 
       if(css811data.co2 < css811dataMin.co2 )
       {
@@ -104,6 +106,28 @@ namespace MeteoMega::CCS811
     acquireCO2_TVOC();
     correctionDeltaCO2 = css811data.co2 - NORMAL_CO2;
     correctionDeltaTvoc = css811data.tvoc - NORMAL_TVOC;
+  }
+
+  void setCorrection()
+  {
+    // Do not allow values less then 'normal' ones
+    if ((int16_t)css811data.co2 - correctionDeltaCO2 < NORMAL_CO2 )
+    {
+      css811data.co2 = NORMAL_CO2;
+    }
+    else
+    {
+      css811data.co2 -= correctionDeltaCO2;
+    }
+
+    if((int16_t)css811data.tvoc -  correctionDeltaTvoc < NORMAL_TVOC)
+    {
+      css811data.tvoc = NORMAL_TVOC;
+    }
+    else
+    {
+      css811data.tvoc -= correctionDeltaTvoc;
+    }
   }
 
   void initSensor()
@@ -165,6 +189,16 @@ namespace MeteoMega::CCS811
     css811data.co2 = ((int)(css811data.co2 + 200)) % 2800;
     css811data.tvoc = ((int)(css811data.tvoc + 300)) % 9000;
 #endif
+  }
+
+  void setEnvironmentCompensation()
+  {
+      if (css811dataMax.co2 > 0) // do not set compensation first time
+      {
+        DEBUGPRINT("setEnvironmentCompensation");
+        MeteoMega::Sensors::Sensors sn = MeteoMega::Sensors::pollSensors();
+        ccs.setEnvironmentalData(sn.hum, sn.tempC);
+      }
   }
 
   int ReadCO2()

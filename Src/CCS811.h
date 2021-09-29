@@ -27,6 +27,8 @@ namespace MeteoMega::CCS811
 
     void initSensor();
     void acquireCO2_TVOC();
+    void setEnvironmentCompensation();
+    void setCorrection();
 };
 
 #endif // CCS811__H
