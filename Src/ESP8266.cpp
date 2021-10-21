@@ -17,9 +17,9 @@
 #define IP "184.106.153.149"                                    // IP address of thingspeak.com
 #define GETSTRING "GET /update?api_key=****************"        // replace with your channel key
 
-// https://thingspeak.com/channels/1481727/private_show
-// Channel -  name 'Train_5_parameters_000' , id '1481727'
-// GET https://api.thingspeak.com/update?api_key=1CYSV23WHUY65XDO&field1=0
+// https://thingspeak.com/channels/*******/private_show
+// Channel -  name 'Train_5_parameters_000' , id '*******'
+// GET https://api.thingspeak.com/update?api_key=****************&field1=0
 
 #define DEBUG false 
 #define DEBUGPRINT(x)   if(DEBUG){Serial.println(x);}
