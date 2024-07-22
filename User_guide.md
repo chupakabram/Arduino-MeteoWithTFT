@@ -73,6 +73,7 @@ Welcome to your new Meteo Station! This guide will help you understand how to op
 - **Incorrect Readings:** Recalibrate the CO2 sensor using the reset button.
 - **Stuck in a Mode:** Restart the device by disconnecting and reconnecting the power supply.
 
+---
 
 ### Example: Setting the Date and Time
 
