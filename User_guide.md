@@ -5,7 +5,7 @@
 Welcome to your new Meteo Station! This guide will help you understand how to operate and make the most of its features.
 
 #### **Powering Up**
-- **Power Supply:** Connect to a 5V, 2A power source.
+- **Power Supply:** Connect to a 9V, 2A power source.
 - **Startup:** The station will automatically start when connected to power.
 
 #### **Main Operating Modes**
@@ -80,7 +80,7 @@ Welcome to your new Meteo Station! This guide will help you understand how to op
 Here's a step-by-step example of how to set the date and time on your Meteo Station after connecting the power supply.
 
 #### **Step 1: Power Up**
-- Connect your Meteo Station to a 5V, 2A power source.
+- Connect your Meteo Station to a 9V, 2A power source.
 - The station will start and display the current time, date, and sensor readings.
 
 #### **Step 2: Enter Clock Settings Mode**
